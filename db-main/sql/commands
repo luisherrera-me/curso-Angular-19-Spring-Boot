@@ -1,0 +1,6 @@
+docker-compose down -v
+docker-compose up
+
+
+listar
+docker exec -it db-users psql -U beta -d userdb -c "SELECT * FROM users LIMIT 10;"
