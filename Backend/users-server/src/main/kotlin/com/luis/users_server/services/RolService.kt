@@ -12,7 +12,7 @@ class RolService @Autowired constructor(
 
     fun getAllRol(): List<Rol> = rolRepository.findAll()
 
-    fun getRolById(id: Long): Rol = rolRepository.findById(id).orElse(null)
+    fun getRolById(id: Long): Rol? = rolRepository.findById(id).orElse(null)
 
     fun createRol(rol: Rol): Rol = rolRepository.save(rol)
 

@@ -101,24 +101,23 @@ class UserController @Autowired constructor(
                     "message" to "Rol no encontrado con el id: ${usersRequest.rolId}",
                     "errorCode" to "ROL_NOT_FOUND"
                 ))
+            }else{
+                val user = Users(
+                    rol = rol,
+                    name = usersRequest.name,
+                    photo = usersRequest.photo,
+                    address = usersRequest.address,
+                    email = usersRequest.email,
+                    password = usersRequest.password,
+                    createdAt = LocalDateTime.now()
+                )
+                val saveUser = user.let { userService.createUser(it) }
+                ResponseEntity.ok(mapOf(
+                    "status" to HttpStatus.OK.value(),
+                    "message" to "Usuarios encontrado.",
+                    "data" to saveUser
+                ))
             }
-
-            val user = Users(
-                rol = rol,
-                name = usersRequest.name,
-                photo = usersRequest.photo,
-                address = usersRequest.address,
-                email = usersRequest.email,
-                password = usersRequest.password,
-                createdAt = LocalDateTime.now()
-            )
-            val saveUser = userService.createUser(user)
-            ResponseEntity.ok(mapOf(
-                "status" to HttpStatus.OK.value(),
-                "message" to "Usuarios encontrado.",
-                "data" to saveUser
-            ))
-
         }catch (e: Exception){
             handleMessage(e, "Error al crear el usuario")
         }
@@ -134,23 +133,24 @@ class UserController @Autowired constructor(
                     "message" to "Rol no encontrado con el id: ${usersRequest.rolId}",
                     "errorCode" to "ROL_NOT_FOUND"
                 ))
+            } else {
+                val user = Users(
+                    rol = rol,
+                    name = usersRequest.name,
+                    photo = usersRequest.photo,
+                    address = usersRequest.address,
+                    email = usersRequest.email,
+                    password = usersRequest.password,
+                    createdAt = LocalDateTime.now()
+                )
+                val saveUser = userService.updateUser(id, user)
+                ResponseEntity.ok(mapOf(
+                    "status" to HttpStatus.OK.value(),
+                    "message" to "Usuarios encontrado.",
+                    "data" to saveUser
+                ))
             }
 
-            val user = Users(
-                rol = rol,
-                name = usersRequest.name,
-                photo = usersRequest.photo,
-                address = usersRequest.address,
-                email = usersRequest.email,
-                password = usersRequest.password,
-                createdAt = LocalDateTime.now()
-            )
-            val saveUser = userService.createUser(user)
-            ResponseEntity.ok(mapOf(
-                "status" to HttpStatus.OK.value(),
-                "message" to "Usuarios encontrado.",
-                "data" to saveUser
-            ))
         }catch (e: Exception){
             handleMessage(e, "Error al crear el usuario")
         }
